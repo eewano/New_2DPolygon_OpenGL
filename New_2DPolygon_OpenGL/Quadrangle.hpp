@@ -1,9 +1,11 @@
 #ifndef Quadrangle_hpp
 #define Quadrangle_hpp
 
-#include "Sprite.hpp"
+#include "Sprite.h"
 
-class Quadrangle : public Sprite {
+static constexpr int QUADRANGLE_VERTEX_COUNT = 4;
+
+class Quadrangle : public Sprite<QUADRANGLE_VERTEX_COUNT> {
 public:
     Quadrangle();
 
