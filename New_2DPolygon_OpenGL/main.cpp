@@ -78,6 +78,9 @@ int main(int argc, const char *argv[]) {
         //設定したシェーダーの使用
         shader->Use();
         quadrangle->Draw(GL_TRIANGLE_FAN);
+        
+        //四角形の移動
+        quadrangle->Move();
 
         //スクリーンバッファの交換(ダブルバッファのスワップ)
         glfwSwapBuffers(window);
