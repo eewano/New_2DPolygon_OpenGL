@@ -8,6 +8,8 @@ public:
     Quadrangle();
 
     ~Quadrangle();
+    
+    void Move();
 };
 
 #endif /* Quadrangle_hpp */
