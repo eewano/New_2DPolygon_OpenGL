@@ -7,6 +7,7 @@
 #include "Utility.h"
 #include "Shader.hpp"
 #include "Quadrangle.hpp"
+#include "Triangle.hpp"
 
 GLFWwindow *window;
 
@@ -64,6 +65,7 @@ int main(int argc, const char *argv[]) {
     auto shader = std::make_unique<Shader>();
     //ポリゴンのクラスの生成
     auto quadrangle = std::make_unique<Quadrangle>();
+    auto triangle = std::make_unique<Triangle>();
 
 
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
@@ -78,9 +80,11 @@ int main(int argc, const char *argv[]) {
         //設定したシェーダーの使用
         shader->Use();
         quadrangle->Draw(GL_TRIANGLE_FAN);
+        triangle->Draw(GL_TRIANGLE_FAN);
         
         //四角形の移動
         quadrangle->Move();
+        triangle->Move();
 
         //スクリーンバッファの交換(ダブルバッファのスワップ)
         glfwSwapBuffers(window);
