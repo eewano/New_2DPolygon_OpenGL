@@ -20,8 +20,8 @@ void Sprite::Draw(GLint glCount) {
     //現在のバッファにデータを送信
     glBufferData(
             GL_ARRAY_BUFFER,
-            sizeof(vertices), //アップロードするデータのバイト数
-            vertices, //アップロードするデータのポイントの設定
+            sizeof(mVertices), //アップロードするデータのバイト数
+            mVertices, //アップロードするデータのポイントの設定
             GL_STATIC_DRAW //データの利用方法(GL_STATIC_DRAW: 一度だけアップロードする)
     );
 
@@ -39,6 +39,18 @@ void Sprite::Draw(GLint glCount) {
     //Color属性
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *) (3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
+    
+    //transformationの生成
+    glm::mat4 mTransform;
+    //translate(transform, glm::vec3(current_posX, current_posY, current_posZ))
+    mTransform = glm::translate(mTransform, glm::vec3(mPos.x, mPos.y, 0.0f));
+    //rotate(tranform, 毎フレームごとの回転量と方向, 回転軸(x, y, z))
+    mTransform = glm::rotate(mTransform, (GLfloat)glfwGetTime() * -1.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+    
+    //uniform locationの基盤の取得とセット
+    GLint mTransformLocation;
+    mTransformLocation = glGetUniformLocation(mShader.mProgram, "transform");
+    glUniformMatrix4fv(mTransformLocation, 1, GL_FALSE, glm::value_ptr(mTransform));
 
     glDrawArrays(glCount, 0, 4);
     glBindVertexArray(0);
